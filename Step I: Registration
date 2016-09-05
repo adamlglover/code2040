@@ -1,0 +1,16 @@
+import requests  
+import json
+
+# Initialize variables
+url = 'http://challenge.code2040.org/api/register'
+token = 'c904a38586e5ab12f436435d4a87a25d'
+github = 'https://github.com/adamlglover/code2040'
+
+# Create a JSON dictionary with two keys
+payload = {'token': token, 'github': github}
+
+# Pass a dictionary :payload to the data argument
+r = requests.post(url, data=payload)
+
+# Print text result
+print(r.text)
