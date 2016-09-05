@@ -1,0 +1,21 @@
+import requests  
+import json
+
+# Initialize variables
+url1 = 'http://challenge.code2040.org/api/reverse'
+url2 = 'http://challenge.code2040.org/api/reverse/validate'
+token = 'c904a38586e5ab12f436435d4a87a25d'
+
+# Create a JSON dictionary with a token key
+payload_return = {'token': token}
+# Recieve a string
+r = requests.post(url1, data=payload_return)
+# Reverse the string
+string = r.text[::-1]
+
+# add string key to payload_send dictionary
+payload_send = {'token': token, 'string': string}
+# Send the revered string
+s = requests.post(url2, payload_send)
+# print response
+print(s.text)
