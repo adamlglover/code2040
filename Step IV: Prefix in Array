@@ -1,0 +1,30 @@
+# Step 4
+import requests  
+import json
+
+# Initialize variables
+url1 = 'http://challenge.code2040.org/api/prefix'
+url2 = 'http://challenge.code2040.org/api/prefix/validate'
+
+token = 'c904a38586e5ab12f436435d4a87a25d'
+
+payload_return = {'token': token}
+
+r = requests.post(url1, data=payload_return)
+prefix = r.json()['prefix']
+array = r.json()['array']
+
+i = 0
+new_array = []
+while i < len(array):
+    if prefix == array[i][:4]:
+        i += 1
+    else:
+        new_array.append(array[i])
+        i += 1
+print(new_array)
+
+payload_send = {'token': token, 'array': new_array}            
+s = requests.post(url2, json=payload_send)          
+
+print(s.text)
