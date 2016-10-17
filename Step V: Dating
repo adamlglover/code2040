@@ -1,0 +1,33 @@
+# Step 5
+import requests  
+import json
+import datetime
+import iso8601
+
+
+# Initialize variables
+url1 = 'http://challenge.code2040.org/api/dating'
+url2 = 'http://challenge.code2040.org/api/dating/validate'
+
+token = 'c904a38586e5ab12f436435d4a87a25d'
+
+
+# Create a JSON dictionary with two keys
+payload_return = {'token': token}
+
+
+r = requests.post(url1, data=payload_return)
+datestamp = r.json()['datestamp']
+interval = r.json()['interval']
+parse = iso8601.parse_date(datestamp)
+datetime = datetime.timedelta(0, interval)
+new_array = iso8601.parse_date(str(parse+datetime)).isoformat()
+new_date = new_array.replace('+00:00', 'Z')
+
+
+payload_send = {'token': token, 'datestamp': new_date}            
+s = requests.post(url2, json=payload_send)          
+
+print(r.text)
+print(new_array)
+print(s.text)
