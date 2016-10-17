@@ -1,0 +1,32 @@
+# Step 3
+import requests  
+import json
+
+# Initialize variables
+url1 = 'http://challenge.code2040.org/api/haystack'
+url2 = 'http://challenge.code2040.org/api/haystack/validate'
+token = 'c904a38586e5ab12f436435d4a87a25d'
+
+
+
+payload_return = {'token': token}
+
+
+r = requests.post(url1, data=payload_return)
+
+
+i = 0
+needle = r.json()['needle']
+haystack = r.json()['haystack']
+while needle != haystack[i]:
+    i += 1
+else:
+    print(haystack[i])
+    print(i)
+    
+payload_send = {'token': token, 'needle': i}            
+s = requests.post(url2, data=payload_send)          
+
+print(s.text)
+            
+        
